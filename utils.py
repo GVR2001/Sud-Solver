@@ -31,4 +31,14 @@ def is_solution(solution: Grid, puzzle: Grid) -> bool:
             all(solution[s] in puzzle[s] for s in squares) and 
             all({solution[s] for s in unit} == set(digits) for unit in all_units))
 
-print(units['C2']) 
+def constrain(grid) -> Grid:
+    """
+    Propogate constraints on a copy of grid to yield a new constrained Grid.
+    :param grid: the grid we want to apply constraints to
+    :return: a new constrained grid
+    """
+    result: Grid = {s: digits for s in squares}
+    for s in grid:
+        if len(grid[s]) == 1:
+            fill(result, s , grid[s])
+    return result
