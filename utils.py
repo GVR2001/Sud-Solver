@@ -1,5 +1,5 @@
 # Ideas implemented from https://github.com/norvig/pytudes/blob/main/ipynb/Sudoku.ipynb (Peter Norvig Sudoku solver)
-from typing import Dict
+from typing import Dict, Optional
 def pair(A: str, B: str) -> tuple:
     """
     Cross product of chars in string A and chars in string B.
@@ -42,3 +42,16 @@ def constrain(grid) -> Grid:
         if len(grid[s]) == 1:
             fill(result, s , grid[s])
     return result
+# If a unit has only one possible square that can hold a digit, then fill the square with the digit
+def fill(grid: Grid, s: Square, d: Digit) -> Optional[Grid]:
+    """
+    Eliminate all the digits except d from grid[s].
+    :param grid: the grid we want to update
+    :param s: the given square we want modify
+    :param d: the digit we want to fill at square s
+    :return: None or the updated grid
+    """
+    if grid[s] == d or all(eliminate(grid, s , d2) for d2 in grid[s] if d2 != d):
+        return grid
+    else:
+        return None
