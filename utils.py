@@ -42,6 +42,7 @@ def constrain(grid) -> Grid:
         if len(grid[s]) == 1:
             fill(result, s , grid[s])
     return result
+
 # If a unit has only one possible square that can hold a digit, then fill the square with the digit
 def fill(grid: Grid, s: Square, d: Digit) -> Optional[Grid]:
     """
@@ -55,3 +56,27 @@ def fill(grid: Grid, s: Square, d: Digit) -> Optional[Grid]:
         return grid
     else:
         return None
+    
+def eliminate(grid: Grid, s: Square, d: Digit) -> Optional[Grid]:
+    """
+    Eliminate d from grid[s]; implement the two constraint propagation strategies.
+    :param grid: the grid we are updating
+    :param s: the grid square are manipulating
+    :param d: the digit we are concerned with
+    """
+    if d not in grid[s]:
+        return grid # Already eliminated
+    grid[s] = grid[s].replace(d, '')
+    if not grid[s]:
+        return None # None: no legal digit left
+    elif len(grid[s]) == 1:
+        #1. If a square has only one possible digit, then eliminate that digit as a possibility for each of the square's peers.
+        d2 = grid[s]
+        if not all(eliminate(grid, s2, d2) for s2 in peers[s]):
+            return None # None: can't eliminate d2 from some square
+    for u in units[s]:
+        dplaces = [s for s in u if d in grid[s]]
+        # 2. If a unit has only one possible square that can hold a digit, then fill the square with the digit.
+        if not dplaces or (len(dplaces) == 1 and not fill(grid, dplaces[0], d)):
+            return None # None: no place in u for d
+    return grid
