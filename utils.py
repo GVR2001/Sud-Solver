@@ -92,3 +92,18 @@ def parse(picture) -> Grid:
     return {s: digits if v == '.' else re.sub(r"[{}]", '', v) 
             for s, v in zip(squares, vals)}
 
+def picture(grid) -> Picture:
+    """
+    Convert a grid into a picture string.
+    :param grid: the grid we want to represent as a picture
+    :return: a picture representation of a grid
+    """
+    if grid is None:
+        return "None"
+    def val(d: DigitSet) -> str: return '.' if d == digits else d if len(d) == 1 else '{' + d + '}'
+    maxwidth = max(len(val(grid[s])) for s in grid)
+    dash1 = '-' * (maxwidth * 3 + 2)
+    dash2 = '\n' + '+'.join(3 * [dash1])
+    def cell(r,c): return val(grid[r + c]).center(maxwidth) + ('|' if c in '36' else ' ') 
+    def line(r): return ''.join(cell(r,c) for c in cols) + (dash2 if r in 'CF' else '')
+    return '\n'.join(map(line, rows))
