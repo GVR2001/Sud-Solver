@@ -107,3 +107,21 @@ def picture(grid) -> Picture:
     def cell(r,c): return val(grid[r + c]).center(maxwidth) + ('|' if c in '36' else ' ') 
     def line(r): return ''.join(cell(r,c) for c in cols) + (dash2 if r in 'CF' else '')
     return '\n'.join(map(line, rows))
+
+def search(grid) -> Grid:
+    """
+    Depth-first search with constraint propagation to find a solution.
+    :param grid: the grid we want to solve
+    :return: None, a completed grid, or a partially solved grid
+    """
+    if grid is None:
+        return None
+    s = min((s for s in squares if len(grid[s]) > 1),
+        default=None, key=lambda s: len(grid[s]))
+    if s is None: # No squares with multiple possibilities; the search has succeeded
+        return grid
+    for d in grid[s]:
+        solution = search(fill(grid.copy(), s, d))
+        if solution:
+            return solution
+    return None
