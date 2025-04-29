@@ -116,6 +116,7 @@ def search(grid) -> Grid:
     """
     if grid is None:
         return None
+    #minimum remaining values heuristic
     s = min((s for s in squares if len(grid[s]) > 1),
         default=None, key=lambda s: len(grid[s]))
     if s is None: # No squares with multiple possibilities; the search has succeeded

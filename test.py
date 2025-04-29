@@ -10,3 +10,5 @@ print(picture(constrain(grid1)))
 grid2 = parse("4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......")
 print(picture(grid2))
 print(picture(constrain(grid2)))
+# Using search to solve the harder grid
+print(picture(search(constrain(grid2))))
