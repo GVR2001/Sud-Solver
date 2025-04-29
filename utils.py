@@ -1,5 +1,6 @@
 # Ideas implemented from https://github.com/norvig/pytudes/blob/main/ipynb/Sudoku.ipynb (Peter Norvig Sudoku solver)
 from typing import Dict, Optional
+import re
 def pair(A: str, B: str) -> tuple:
     """
     Cross product of chars in string A and chars in string B.
@@ -80,3 +81,14 @@ def eliminate(grid: Grid, s: Square, d: Digit) -> Optional[Grid]:
         if not dplaces or (len(dplaces) == 1 and not fill(grid, dplaces[0], d)):
             return None # None: no place in u for d
     return grid
+
+def parse(picture) -> Grid:
+    """
+    Convert a picture to a grid.
+    :param picture: the string representation of a grid
+    :return: the grid representation
+    """
+    vals = re.findall(r"[.1-9]|[{]1-9]+[}]", picture)
+    return {s: digits if v == '.' else re.sub(r"[{}]", '', v) 
+            for s, v in zip(squares, vals)}
+
