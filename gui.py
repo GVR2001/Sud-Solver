@@ -27,7 +27,8 @@ class App(customtkinter.CTk):
 
     def key_pressed(self, event):
         if self.selected_button and event.char.isdigit():
-            self.selected_button.configure(text=event.char)
-            print(f"Updated selected button text to {event.char}")
+            if event.char != '0':
+                self.selected_button.configure(text=event.char)
+                print(f"Updated selected button text to {event.char}")
 app = App()
 app.mainloop()
