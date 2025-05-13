@@ -77,7 +77,12 @@ class App(customtkinter.CTk):
             print(f"Set cell {self.selected_coords} to {event.char}")
 
     def move_selection(self, direction):
-        if self.selected_coords is None: return  # No button selected yet
+        # No button selected yet
+        if self.selected_coords is None: 
+            self.selected_coords = (0,0)
+            self.selected_button = self.sud_frame.cells[0][0]
+            self.selected_button.configure(border_color='blue', border_width = 3) # Changes border for selected button
+            return  
 
         row, col = self.selected_coords
         if direction == "Up":
