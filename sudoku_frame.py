@@ -57,16 +57,41 @@ class App(customtkinter.CTk):
         self.bind('<Key>', self.key_pressed)
 
     def select_button(self, row, col):
-        if (self.selected_button): self.selected_button.configure(border_color='grey') # Resets border
+        if (self.selected_button): self.selected_button.configure(border_color='grey', border_width = .5) # Resets border
         
         self.selected_coords = (row, col)
         self.selected_button = self.sud_frame.cells[row][col]
-        self.selected_button.configure(border_color='blue') # Changes border for selected button
+        self.selected_button.configure(border_color='blue', border_width = 3) # Changes border for selected button
 
     def key_pressed(self, event):
-        if self.selected_button and event.char.isdigit() and event.char != '0':
+        key_map = {
+            "Up": "Up", "w": "Up", "W": "Up",
+            "Down": "Down", "s": "Down", "S": "Down",
+            "Left": "Left", "a": "Left", "A": "Left",
+            "Right": "Right", "d": "Right", "D": "Right"
+        }
+        if event.keysym in key_map: 
+            self.move_selection(key_map[event.keysym])
+        elif self.selected_button and event.char.isdigit() and event.char != '0':
             self.selected_button.configure(text=event.char)
             print(f"Set cell {self.selected_coords} to {event.char}")
+
+    def move_selection(self, direction):
+        if self.selected_coords is None: return  # No button selected yet
+
+        row, col = self.selected_coords
+        if direction == "Up":
+            row = (row - 1) % 9  # wrap around
+        elif direction == "Down":
+            row = (row + 1) % 9
+        elif direction == "Left":
+            col = (col - 1) % 9
+        elif direction == "Right":
+            col = (col + 1) % 9
+
+        self.select_button(row, col)
+
+
 
 app = App()
 app.mainloop()
