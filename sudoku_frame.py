@@ -41,6 +41,14 @@ class SudokuFrame(customtkinter.CTkFrame):
 
 
 class App(customtkinter.CTk):
+    # Key mapping to move around grid
+    key_map = {
+            "Up": "Up", "w": "Up", "W": "Up",
+            "Down": "Down", "s": "Down", "S": "Down",
+            "Left": "Left", "a": "Left", "A": "Left",
+            "Right": "Right", "d": "Right", "D": "Right"
+    }
+
     def __init__(self):
         super().__init__()
 
@@ -64,17 +72,20 @@ class App(customtkinter.CTk):
         self.selected_button.configure(border_color='blue', border_width = 3) # Changes border for selected button
 
     def key_pressed(self, event):
-        key_map = {
-            "Up": "Up", "w": "Up", "W": "Up",
-            "Down": "Down", "s": "Down", "S": "Down",
-            "Left": "Left", "a": "Left", "A": "Left",
-            "Right": "Right", "d": "Right", "D": "Right"
-        }
-        if event.keysym in key_map: 
-            self.move_selection(key_map[event.keysym])
+        if event.keysym in App.key_map: 
+            self.move_selection(App.key_map[event.keysym])
         elif self.selected_button and event.char.isdigit() and event.char != '0':
             self.selected_button.configure(text=event.char)
             print(f"Set cell {self.selected_coords} to {event.char}")
+            text = ''
+            for i in range(9):
+                for j in range(9):
+                    btn_text = self.sud_frame.cells[i][j].cget("text")
+                    if btn_text: text += btn_text
+                    else: text += '.'
+            print(text)
+
+                
 
     def move_selection(self, direction):
         # No button selected yet
