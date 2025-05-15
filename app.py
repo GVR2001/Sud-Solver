@@ -1,5 +1,5 @@
 import customtkinter 
-from frame import SudokuFrame
+from frame import SudokuFrame, MenuFrame
 
 class App(customtkinter.CTk):
     """Responsible for running the GUI"""
@@ -15,15 +15,20 @@ class App(customtkinter.CTk):
         """Initializes the GUI"""
         super().__init__()
 
-        self.title("Sudoku Grid")
-        self.geometry("420x420")
+        self.title("Sudoku Solver")
+        self.geometry("450x450")
+        self.grid_columnconfigure(0, weight=1)
+        # Menu Frame
+        self.menu_frame = MenuFrame(self)
+        self.menu_frame.grid(row=0, column=0, pady=10, padx=30, sticky='nsew')
 
+        # Sudoku Frame
         self.selected_button = None
         self.selected_coords = None
 
         self.sud_frame = SudokuFrame(self, self)
         self.sud_frame.configure(fg_color='black', corner_radius = 0)
-        self.sud_frame.grid(row=0, column=0, padx=6, pady=6,sticky="nsew")
+        self.sud_frame.grid(row=1, column=0, padx=37.25, pady=5, sticky='nsew')
 
         self.bind('<Key>', self.key_pressed)
 

@@ -3,6 +3,12 @@ import customtkinter
 class MenuFrame(customtkinter.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
+        # Solve Button
+        self.solveBtn = customtkinter.CTkButton(self, text="Solve")
+        self.solveBtn.grid(row=0, column=0, padx=5, pady=5, sticky='e')
+        # Refresh Button
+        self.refreshBtn = customtkinter.CTkButton(self, text="Refresh")
+        self.refreshBtn.grid(row=0, column=1, padx=5, pady=5, sticky='e')
 
 
 class GridFrame(customtkinter.CTkFrame):
@@ -24,9 +30,9 @@ class GridFrame(customtkinter.CTkFrame):
         self.buttons = [[None for _ in range(3)] for _ in range(3)]
         for row in range(3):
             for col in range(3):
-                button = customtkinter.CTkButton(self, width=40, height=40, corner_radius = 0, text="", 
-                fg_color='white', border_color='grey', border_width=.5,hover=True, hover_color='grey',text_color ='black',
-                command=lambda a=row, b=col: self.find_button(a,b))
+                button = customtkinter.CTkButton(self, width=40, height=40, corner_radius=0, text="", 
+                    fg_color='white', border_color='grey', border_width=.5,hover=True, hover_color='grey', text_color='black',
+                    command=lambda a=row, b=col: self.find_button(a,b))
                 button.grid(row=row,column=col)
                 self.buttons[row][col] = button
 
