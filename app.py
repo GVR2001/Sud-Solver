@@ -48,9 +48,11 @@ class App(customtkinter.CTk):
         -Parameters-
         event: a keyboard button press
         """
-        if event.keysym in App.key_map: 
+        if event.keysym in App.key_map: # Moves around Grid
             self.move_square(App.key_map[event.keysym])
-        elif self.selected_button and event.char.isdigit() and event.char != '0':
+        elif event.keysym in ("BackSpace", "Delete") and self.selected_button: # Clears selected square
+            self.selected_button.configure(text="")
+        elif self.selected_button and event.char.isdigit() and event.char != '0': # Updates a square
             self.selected_button.configure(text=event.char)
             print(f"Set cell {self.selected_coords} to {event.char}")
 

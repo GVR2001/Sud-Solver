@@ -1,5 +1,10 @@
 import customtkinter
 
+class MenuFrame(customtkinter.CTkFrame):
+    def __init__(self, master):
+        super().__init__(master)
+
+
 class GridFrame(customtkinter.CTkFrame):
     """Creates a 3x3 grid component for the Sudoku Grid."""
     def __init__(self, master, parent_app, grid_row_pos, grid_col_pos):
