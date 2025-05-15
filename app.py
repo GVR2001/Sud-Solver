@@ -20,7 +20,7 @@ class App(customtkinter.CTk):
         self.grid_columnconfigure(0, weight=1)
         # Menu Frame
         self.menu_frame = MenuFrame(self)
-        self.menu_frame.grid(row=0, column=0, pady=10, padx=30, sticky='nsew')
+        self.menu_frame.grid(row=0, column=0, pady=10, padx=30)
 
         # Sudoku Frame
         self.selected_button = None

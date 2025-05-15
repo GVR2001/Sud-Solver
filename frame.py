@@ -3,12 +3,16 @@ import customtkinter
 class MenuFrame(customtkinter.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
+        # Enter Button 
+        self.enterBtn = customtkinter.CTkButton(self, width=60, text='Enter')
+        self.enterBtn.grid(row=0, column=0, padx=5, pady=5)
         # Solve Button
-        self.solveBtn = customtkinter.CTkButton(self, text="Solve")
-        self.solveBtn.grid(row=0, column=0, padx=5, pady=5, sticky='e')
+        self.solveBtn = customtkinter.CTkButton(self, width=60, text="Solve")
+        self.solveBtn.grid(row=0, column=1, padx=5, pady=5)
         # Refresh Button
-        self.refreshBtn = customtkinter.CTkButton(self, text="Refresh")
-        self.refreshBtn.grid(row=0, column=1, padx=5, pady=5, sticky='e')
+        self.refreshBtn = customtkinter.CTkButton(self, width=60, text="Refresh")
+        self.refreshBtn.grid(row=0, column=2, padx=5, pady=5)
+    
 
 
 class GridFrame(customtkinter.CTkFrame):
