@@ -1,16 +1,18 @@
 import customtkinter
 
 class MenuFrame(customtkinter.CTkFrame):
-    def __init__(self, master):
+    def __init__(self, master, parent_app):
         super().__init__(master)
+        self.parent_app = parent_app
+
         # Enter Button 
-        self.enterBtn = customtkinter.CTkButton(self, width=60, text='Enter')
+        self.enterBtn = customtkinter.CTkButton(self, width=60, text='Enter', command=parent_app.text_grid)
         self.enterBtn.grid(row=0, column=0, padx=5, pady=5)
         # Solve Button
-        self.solveBtn = customtkinter.CTkButton(self, width=60, text="Solve")
+        self.solveBtn = customtkinter.CTkButton(self, width=60, text="Solve", command=parent_app.solve)
         self.solveBtn.grid(row=0, column=1, padx=5, pady=5)
         # Refresh Button
-        self.refreshBtn = customtkinter.CTkButton(self, width=60, text="Refresh")
+        self.refreshBtn = customtkinter.CTkButton(self, width=60, text="Refresh", command=parent_app.clear_grid)
         self.refreshBtn.grid(row=0, column=2, padx=5, pady=5)
     
 

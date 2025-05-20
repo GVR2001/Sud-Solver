@@ -19,7 +19,7 @@ class App(customtkinter.CTk):
         self.geometry("450x450")
         self.grid_columnconfigure(0, weight=1)
         # Menu Frame
-        self.menu_frame = MenuFrame(self)
+        self.menu_frame = MenuFrame(self, self)
         self.menu_frame.grid(row=0, column=0, pady=10, padx=30)
 
         # Sudoku Frame
@@ -99,6 +99,15 @@ class App(customtkinter.CTk):
             col = (col + 1) % 9
 
         self.select_button(row, col)
+    
+    def clear_grid(self):
+        print("Cleared")
+
+    def solve(self):
+        print("Solved")
+
+    def text_grid(self):
+        print("text")
 
 
 
