@@ -108,6 +108,19 @@ def picture(grid) -> Picture:
     def line(r): return ''.join(cell(r,c) for c in cols) + (dash2 if r in 'CF' else '')
     return '\n'.join(map(line, rows))
 
+def string_picture(grid) -> str:
+    """
+    Convert a grid into its textual representation.
+    :param grid: the grid we want to represent as a picture
+    :return: a textual representation of a grid
+    """
+    if grid is None:
+        return "None"
+    def val(d: DigitSet) -> str: return '.' if d == digits else d if len(d) == 1 else '*'
+    def cell(r,c): return val(grid[r + c]) 
+    def line(r): return ''.join(cell(r,c) for c in cols)
+    return ''.join(map(line, rows))
+
 def search(grid) -> Grid:
     """
     Depth-first search with constraint propagation to find a solution.
