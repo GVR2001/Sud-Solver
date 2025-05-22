@@ -1,5 +1,6 @@
 import customtkinter 
 from frame import SudokuFrame, MenuFrame
+from utils import parse, search, constrain, string_picture
 
 class App(customtkinter.CTk):
     """Responsible for running the GUI"""
@@ -17,6 +18,7 @@ class App(customtkinter.CTk):
 
         self.title("Sudoku Solver")
         self.geometry("450x450")
+        self.resizable(False,False)
         self.grid_columnconfigure(0, weight=1)
         # Menu Frame
         self.menu_frame = MenuFrame(self, self)
@@ -58,8 +60,7 @@ class App(customtkinter.CTk):
         elif event.keysym in ("BackSpace", "Delete") and self.selected_button: # Clears selected square
             self.selected_button.configure(text="")
         elif self.selected_button and event.char.isdigit() and event.char != '0': # Updates a square
-            self.selected_button.configure(text=event.char)
-            print(f"Set cell {self.selected_coords} to {event.char}")
+            self.selected_button.configure(text=event.char, text_color='black')
 
     def get_grid(self):
         """ Creates a textual representation of the sudoku grid.
@@ -99,14 +100,28 @@ class App(customtkinter.CTk):
             col = (col + 1) % 9
 
         self.select_button(row, col)
-    
+
+    # Refresh Button
     def clear_grid(self):
-        print("Cleared")
+        """ Clears grid squares."""
+        for i in range(9):
+            for j in range(9):
+                self.sud_frame.cells[i][j].configure(text="")
 
+    # Solve Button
     def solve(self):
-        print("Solved")
+        """ Solves sudoku puzzle."""
+        grid = string_picture(search(constrain((parse(self.get_grid())))))
+        for i in range(9):
+            for j in range(9):
+                btn = self.sud_frame.cells[i][j]
+                if  btn.cget("text") == "":
+                    btn.configure(text=grid[i * 9 + j], text_color='blue')
+        
 
+    # Enter textual representation button
     def text_grid(self):
+        """ Allows user to enter textual grid representation."""
         print("text")
 
 
