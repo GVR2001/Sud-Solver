@@ -21,6 +21,13 @@ all_units = [pair(rows, c) for c in cols] + [pair(r, cols) for r in rows] + all_
 units     = {s: tuple(u for u in all_units if s in u) for s in squares} # For each square s, this maps box, row, col belonging to s
 peers     = {s: set().union(*units[s]) - {s} for s in squares} # Get set of peers that are different from s
 
+def is_valid(puzzle: Grid) -> bool:
+    for square in puzzle:
+        for peer in peers[square]:
+            if len(puzzle[square]) == 1 and puzzle[square] == puzzle[peer]:
+                return False
+    return True
+
 def is_solution(solution: Grid, puzzle: Grid) -> bool:
     """
     Checking the validity of a possible solution.

@@ -13,3 +13,7 @@ print(picture(grid2))
 print(picture(constrain(grid2)))
 # Using search to solve the harder grid
 print(picture(search(constrain(grid2))))
+# Grid validity
+grid3 = parse("535.7.... 6..195... .98....6. 8...6...3 4..8.3..1 7...2...6 .6....28. ...419..5 ....8..79")
+print(is_valid(grid3))
+print(is_valid(grid1))

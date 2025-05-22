@@ -1,6 +1,6 @@
 import customtkinter 
 from frame import SudokuFrame, MenuFrame
-from utils import parse, search, constrain, string_picture
+from utils import parse, search, constrain, string_picture, is_valid
 
 class App(customtkinter.CTk):
     """Responsible for running the GUI"""
@@ -111,12 +111,16 @@ class App(customtkinter.CTk):
     # Solve Button
     def solve(self):
         """ Solves sudoku puzzle."""
-        grid = string_picture(search(constrain((parse(self.get_grid())))))
-        for i in range(9):
-            for j in range(9):
-                btn = self.sud_frame.cells[i][j]
-                if  btn.cget("text") == "":
-                    btn.configure(text=grid[i * 9 + j], text_color='blue')
+        grid = parse(self.get_grid())
+        if is_valid(grid):
+            answer = string_picture(search(constrain(grid)))
+            for i in range(9):
+                for j in range(9):
+                    btn = self.sud_frame.cells[i][j]
+                    if  btn.cget("text") == "":
+                        btn.configure(text=answer[i * 9 + j], text_color='blue')
+        else:
+            print("Invalid")
         
 
     # Enter textual representation button
