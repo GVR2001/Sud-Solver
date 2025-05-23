@@ -1,5 +1,11 @@
 import customtkinter
 
+class WindowFrame(customtkinter.CTkFrame):
+    def __init__(self, master):
+        super().__init__(master)
+        self.label = customtkinter.CTkLabel(self, text="Enter 81-digit Sudoku string:")
+        self.label.grid(row=0, column=0)
+
 class MenuFrame(customtkinter.CTkFrame):
     def __init__(self, master, parent_app):
         super().__init__(master)
