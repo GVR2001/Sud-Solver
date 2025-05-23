@@ -112,7 +112,8 @@ class App(customtkinter.CTk):
     def solve(self):
         """ Solves sudoku puzzle."""
         grid = parse(self.get_grid())
-        if is_valid(grid):
+        invalid_squares = is_valid(grid)
+        if not invalid_squares:
             answer = string_picture(search(constrain(grid)))
             for i in range(9):
                 for j in range(9):
@@ -120,7 +121,13 @@ class App(customtkinter.CTk):
                     if  btn.cget("text") == "":
                         btn.configure(text=answer[i * 9 + j], text_color='blue')
         else:
-            print("Invalid")
+            self.invalidate(invalid_squares)
+    
+    def invalidate(self, coords: list):
+        """ Colors invalid squares red."""
+        for coord in coords:
+            x,y = coord
+            self.sud_frame.cells[x][y].configure(text_color='red')
         
 
     # Enter textual representation button
