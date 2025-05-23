@@ -21,16 +21,31 @@ all_units = [pair(rows, c) for c in cols] + [pair(r, cols) for r in rows] + all_
 units     = {s: tuple(u for u in all_units if s in u) for s in squares} # For each square s, this maps box, row, col belonging to s
 peers     = {s: set().union(*units[s]) - {s} for s in squares} # Get set of peers that are different from s
 
-def is_valid(puzzle: Grid) -> bool:
+def get_coord(square: Square) -> tuple:
+    """ Gets coord from defined Square position (e.g. 'A1' -> (0,0)).
+
+    -Returns-
+    coord (tuple): coordinate position on 9x9 sudoku puzzle
+    """
+    return (ord(square[0])-65,int(square[1])-1) # 'A' in Ascii is 65
+
+def is_valid(puzzle: Grid) -> list:
+    """ Checks whether a given puzzle is valid or not.
+
+    -Returns-
+    (list): a list of invalid squares
+    """
+    invalid_squares = []
     for square in puzzle:
         for peer in peers[square]:
             if len(puzzle[square]) == 1 and puzzle[square] == puzzle[peer]:
-                return False
-    return True
+                invalid_squares.append(get_coord(square))
+                break
+    return invalid_squares
 
 def is_solution(solution: Grid, puzzle: Grid) -> bool:
-    """
-    Checking the validity of a possible solution.
+    """ Checking the validity of a possible solution.
+
     :param solution: a possible sudoku solution
     :param puzzle: the sudoku we are trying to solve
     :return: a boolean depending on whether the solution is valid or not.
@@ -40,8 +55,8 @@ def is_solution(solution: Grid, puzzle: Grid) -> bool:
             all({solution[s] for s in unit} == set(digits) for unit in all_units))
 
 def constrain(grid) -> Grid:
-    """
-    Propogate constraints on a copy of grid to yield a new constrained Grid.
+    """ Propogate constraints on a copy of grid to yield a new constrained Grid.
+
     :param grid: the grid we want to apply constraints to
     :return: a new constrained grid
     """
@@ -53,8 +68,8 @@ def constrain(grid) -> Grid:
 
 # If a unit has only one possible square that can hold a digit, then fill the square with the digit
 def fill(grid: Grid, s: Square, d: Digit) -> Optional[Grid]:
-    """
-    Eliminate all the digits except d from grid[s].
+    """ Eliminate all the digits except d from grid[s].
+
     :param grid: the grid we want to update
     :param s: the given square we want modify
     :param d: the digit we want to fill at square s
@@ -66,8 +81,8 @@ def fill(grid: Grid, s: Square, d: Digit) -> Optional[Grid]:
         return None
     
 def eliminate(grid: Grid, s: Square, d: Digit) -> Optional[Grid]:
-    """
-    Eliminate d from grid[s]; implement the two constraint propagation strategies.
+    """ Eliminate d from grid[s]; implement the two constraint propagation strategies.
+
     :param grid: the grid we are updating
     :param s: the grid square are manipulating
     :param d: the digit we are concerned with
@@ -90,8 +105,8 @@ def eliminate(grid: Grid, s: Square, d: Digit) -> Optional[Grid]:
     return grid
 
 def parse(picture) -> Grid:
-    """
-    Convert a picture to a grid.
+    """ Convert a picture to a grid.
+
     :param picture: the string representation of a grid
     :return: the grid representation
     """
@@ -100,8 +115,8 @@ def parse(picture) -> Grid:
             for s, v in zip(squares, vals)}
 
 def picture(grid) -> Picture:
-    """
-    Convert a grid into a picture string.
+    """ Convert a grid into a picture string.
+
     :param grid: the grid we want to represent as a picture
     :return: a picture representation of a grid
     """
@@ -116,8 +131,8 @@ def picture(grid) -> Picture:
     return '\n'.join(map(line, rows))
 
 def string_picture(grid) -> str:
-    """
-    Convert a grid into its textual representation.
+    """ Convert a grid into its textual representation.
+
     :param grid: the grid we want to represent as a picture
     :return: a textual representation of a grid
     """
@@ -129,8 +144,8 @@ def string_picture(grid) -> str:
     return ''.join(map(line, rows))
 
 def search(grid) -> Grid:
-    """
-    Depth-first search with constraint propagation to find a solution.
+    """ Depth-first search with constraint propagation to find a solution.
+
     :param grid: the grid we want to solve
     :return: None, a completed grid, or a partially solved grid
     """
