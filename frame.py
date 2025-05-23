@@ -10,8 +10,24 @@ class WindowFrame(customtkinter.CTkFrame):
         self.input_box = customtkinter.CTkEntry(self, width=250)
         self.input_box.grid(row=1, column=0, padx=5, pady=5)
         # Enter Button
-        self.enterBtn = customtkinter.CTkButton(self,text="Enter", width=250)
+        self.enterBtn = customtkinter.CTkButton(self,text="Enter", width=250, command=self.check_text)
         self.enterBtn.grid(row=2, column=0, padx=5, pady=5)
+    
+    def check_text(self):
+        text = self.input_box.get().replace(" ", "")
+        if len(text) == 81 and self.valid_str(text):
+            print("valid")
+        else:
+            print("invalid")
+    
+    def valid_str(self, text: str):
+        for c in text:
+            if c.isdigit() or c == '.':
+                continue
+            else:
+                return False
+        return True
+        
 
 class MenuFrame(customtkinter.CTkFrame):
     def __init__(self, master, parent_app):
