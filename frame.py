@@ -29,7 +29,10 @@ class WindowFrame(customtkinter.CTkFrame):
             else:
                 return False
         return True
-        
+
+class ErrorFrame(customtkinter.CTkFrame):
+    def __init__(self, master):
+        super().__init__(master)
 
 class MenuFrame(customtkinter.CTkFrame):
     def __init__(self, master, parent_app):

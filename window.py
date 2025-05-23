@@ -16,7 +16,7 @@ class TopLevelWindow(customtkinter.CTkToplevel):
 class ErrorWindow(customtkinter.CTkToplevel):
     def __init__(self, master):
         super().__init__(master)
-        self.title('Error')
+        self.title('Error!')
         self.geometry("300x100")
         self.grab_set()
         self.focus_force()
