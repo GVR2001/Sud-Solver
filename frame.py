@@ -1,8 +1,9 @@
 import customtkinter
 
 class WindowFrame(customtkinter.CTkFrame):
-    def __init__(self, master):
+    def __init__(self, master, parent_app):
         super().__init__(master)
+        self.parent_app = parent_app
         # Label
         self.label = customtkinter.CTkLabel(self, text="Enter 81-digit Sudoku string:")
         self.label.grid(row=0, column=0, padx=5, pady=5)
@@ -16,7 +17,8 @@ class WindowFrame(customtkinter.CTkFrame):
     def check_text(self):
         text = self.input_box.get().replace(" ", "")
         if len(text) == 81 and self.valid_str(text):
-            print("valid")
+            self.parent_app.load_sudoku(text)
+            self.master.destroy() # master will always be instance of TopLevelWindow
         else:
             print("invalid")
     

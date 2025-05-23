@@ -135,11 +135,19 @@ class App(customtkinter.CTk):
             self.sud_frame.cells[x][y].configure(text_color='red')
         
 
-    # Opens a window to allow you to enter textual representation of sudoku grid
+    # Load Sudoku Grid
     def text_grid(self):
         """ Allows user to enter textual grid representation."""
         if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
-            self.toplevel_window = TopLevelWindow(self)  # create window if its None or destroyed
+            self.toplevel_window = TopLevelWindow(self, self)  # create window if its None or destroyed
+    
+    def load_sudoku(self, puzzle: str):
+        for i in range(9):
+            for j in range(9):
+                btn = self.sud_frame.cells[i][j]
+                c = puzzle[i * 9 + j] 
+                if c != '.':
+                    btn.configure(text=c)
 
 
 
