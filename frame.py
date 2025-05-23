@@ -3,8 +3,15 @@ import customtkinter
 class WindowFrame(customtkinter.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
+        # Label
         self.label = customtkinter.CTkLabel(self, text="Enter 81-digit Sudoku string:")
-        self.label.grid(row=0, column=0)
+        self.label.grid(row=0, column=0, padx=5, pady=5)
+        # Input box
+        self.input_box = customtkinter.CTkEntry(self, width=250)
+        self.input_box.grid(row=1, column=0, padx=5, pady=5)
+        # Enter Button
+        self.enterBtn = customtkinter.CTkButton(self,text="Enter", width=250)
+        self.enterBtn.grid(row=2, column=0, padx=5, pady=5)
 
 class MenuFrame(customtkinter.CTkFrame):
     def __init__(self, master, parent_app):
@@ -12,8 +19,8 @@ class MenuFrame(customtkinter.CTkFrame):
         self.parent_app = parent_app
 
         # Enter Button 
-        self.enterBtn = customtkinter.CTkButton(self, width=60, text='Load Grid', command=parent_app.text_grid)
-        self.enterBtn.grid(row=0, column=0, padx=5, pady=5)
+        self.loadBtn = customtkinter.CTkButton(self, width=60, text='Load Grid', command=parent_app.text_grid)
+        self.loadBtn.grid(row=0, column=0, padx=5, pady=5)
         # Solve Button
         self.solveBtn = customtkinter.CTkButton(self, width=60, text="Solve", command=parent_app.solve)
         self.solveBtn.grid(row=0, column=1, padx=5, pady=5)
