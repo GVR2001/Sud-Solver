@@ -20,7 +20,7 @@ class WindowFrame(customtkinter.CTkFrame):
             self.parent_app.load_sudoku(text)
             self.master.destroy() # master will always be instance of TopLevelWindow
         else:
-            print("invalid")
+            self.parent_app.load_error()
     
     def valid_str(self, text: str):
         for c in text:

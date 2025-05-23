@@ -12,6 +12,15 @@ class TopLevelWindow(customtkinter.CTkToplevel):
 
         self.frame = WindowFrame(self, parent_app)
         self.frame.grid(row=0, column=0, padx=10, pady=10)
+    
+class ErrorWindow(customtkinter.CTkToplevel):
+    def __init__(self, master):
+        super().__init__(master)
+        self.title('Error')
+        self.geometry("300x100")
+        self.grab_set()
+        self.focus_force()
+
         
 
         

@@ -1,6 +1,6 @@
 import customtkinter 
 from frame import SudokuFrame, MenuFrame
-from window import TopLevelWindow
+from window import TopLevelWindow, ErrorWindow
 from utils import parse, search, constrain, string_picture, is_valid
 
 class App(customtkinter.CTk):
@@ -22,8 +22,9 @@ class App(customtkinter.CTk):
         self.resizable(False,False)
         self.grid_columnconfigure(0, weight=1)
 
-        # TopLevelWindow
+        # Windows
         self.toplevel_window = None
+        self.error_window = None
 
         # Menu Frame
         self.menu_frame = MenuFrame(self, self)
@@ -137,7 +138,7 @@ class App(customtkinter.CTk):
 
     # Load Sudoku Grid
     def text_grid(self):
-        """ Allows user to enter textual grid representation."""
+        """ Creates window for user to enter textual grid representation."""
         if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
             self.toplevel_window = TopLevelWindow(self, self)  # create window if its None or destroyed
     
@@ -148,6 +149,11 @@ class App(customtkinter.CTk):
                 c = puzzle[i * 9 + j] 
                 if c != '.':
                     btn.configure(text=c)
+    
+    def load_error(self):
+        if self.error_window is None or not self.error_window.winfo_exists():
+            self.error_window = ErrorWindow(self)  # create error window if its None or destroyed
+
 
 
 
