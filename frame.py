@@ -6,7 +6,7 @@ class MenuFrame(customtkinter.CTkFrame):
         self.parent_app = parent_app
 
         # Enter Button 
-        self.enterBtn = customtkinter.CTkButton(self, width=60, text='Enter', command=parent_app.text_grid)
+        self.enterBtn = customtkinter.CTkButton(self, width=60, text='Load Grid', command=parent_app.text_grid)
         self.enterBtn.grid(row=0, column=0, padx=5, pady=5)
         # Solve Button
         self.solveBtn = customtkinter.CTkButton(self, width=60, text="Solve", command=parent_app.solve)

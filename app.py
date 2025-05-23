@@ -1,5 +1,6 @@
 import customtkinter 
 from frame import SudokuFrame, MenuFrame
+from window import TopLevelWindow
 from utils import parse, search, constrain, string_picture, is_valid
 
 class App(customtkinter.CTk):
@@ -20,6 +21,10 @@ class App(customtkinter.CTk):
         self.geometry("450x450")
         self.resizable(False,False)
         self.grid_columnconfigure(0, weight=1)
+
+        # TopLevelWindow
+        self.toplevel_window = None
+
         # Menu Frame
         self.menu_frame = MenuFrame(self, self)
         self.menu_frame.grid(row=0, column=0, pady=10, padx=30)
@@ -130,10 +135,11 @@ class App(customtkinter.CTk):
             self.sud_frame.cells[x][y].configure(text_color='red')
         
 
-    # Enter textual representation button
+    # Opens a window to allow you to enter textual representation of sudoku grid
     def text_grid(self):
         """ Allows user to enter textual grid representation."""
-        print("text")
+        if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
+            self.toplevel_window = TopLevelWindow(self)  # create window if its None or destroyed
 
 
 
