@@ -149,12 +149,13 @@ class App(customtkinter.CTk):
         puzzle (str): the textual representation of the puzzle. 
         (e.g "4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......")
         """
+        self.clear_grid() # Clears the grid
         for i in range(9):
             for j in range(9):
                 btn = self.sud_frame.cells[i][j]
                 c = puzzle[i * 9 + j] 
                 if c != '.':
-                    btn.configure(text=c)
+                    btn.configure(text=c, text_color='black')
     
     def load_error(self, err_msg: str):
         """ Displays error on additional window.
