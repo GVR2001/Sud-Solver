@@ -14,7 +14,7 @@ class App(customtkinter.CTk):
     }
 
     def __init__(self):
-        """Initializes the GUI"""
+        """Initializes the GUI."""
         super().__init__()
 
         self.title("Sudoku Solver")
@@ -143,6 +143,12 @@ class App(customtkinter.CTk):
             self.toplevel_window = TopLevelWindow(self, self)  # create window if its None or destroyed
     
     def load_sudoku(self, puzzle: str):
+        """ Loads a sudoku puzzle from a given string.
+        
+        -Parameters-
+        puzzle (str): the textual representation of the puzzle. 
+        (e.g "4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......")
+        """
         for i in range(9):
             for j in range(9):
                 btn = self.sud_frame.cells[i][j]
@@ -150,7 +156,12 @@ class App(customtkinter.CTk):
                 if c != '.':
                     btn.configure(text=c)
     
-    def load_error(self, err_msg):
+    def load_error(self, err_msg: str):
+        """ Displays error on additional window.
+        
+        -Parameters-
+        err_msg (str): the error message
+        """
         if self.error_window is None or not self.error_window.winfo_exists():
             self.error_window = ErrorWindow(self, err_msg)  # create error window if its None or destroyed
 

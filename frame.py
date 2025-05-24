@@ -1,7 +1,14 @@
 import customtkinter
 
 class WindowFrame(customtkinter.CTkFrame):
+    """Creates the pop-up window to load a grid."""
     def __init__(self, master, parent_app):
+        """Initializes a window frame for the load_grid functionality.
+        
+        -Parameters-
+        master: the object creating the frame
+        parent_app: the main parent application
+        """
         super().__init__(master)
         self.parent_app = parent_app
         # Label
@@ -15,6 +22,7 @@ class WindowFrame(customtkinter.CTkFrame):
         self.enterBtn.grid(row=2, column=0, padx=5, pady=5)
     
     def check_text(self):
+        """Checks the validity of the input in the entry box."""
         text = self.input_box.get().replace(" ", "")
         valid_length = len(text) == 81
         valid_string = self.valid_str(text)
@@ -33,6 +41,11 @@ class WindowFrame(customtkinter.CTkFrame):
             self.parent_app.load_error(err_msg)
     
     def valid_str(self, text: str):
+        """ Checks whether the sudoku string is valid or not.
+        
+        -Parameters-
+        text (str): the string we are checking
+        """
         for c in text:
             if c.isdigit() or c == '.':
                 continue
@@ -41,7 +54,14 @@ class WindowFrame(customtkinter.CTkFrame):
         return True
 
 class ErrorFrame(customtkinter.CTkFrame):
+    """Creates the interface for the error pop-up."""
     def __init__(self, master, err):
+        """ Initializes Error frame
+        
+        -Parameters-
+        master: the object creating the frame
+        err (str): the relevant error message
+        """
         self.master = master
         super().__init__(master)
         self.errorLabel = customtkinter.CTkLabel(self, text=err)
@@ -50,10 +70,18 @@ class ErrorFrame(customtkinter.CTkFrame):
         self.okBtn.grid(row=1, column=0, padx=10, pady=10)
     
     def exit(self):
+        """Destroys error message window."""
         self.master.destroy()
 
 class MenuFrame(customtkinter.CTkFrame):
+    """Creates the interface for the menu section in the Sudoku app."""
     def __init__(self, master, parent_app):
+        """ Initializes the Menu Frame.
+        
+        -Parameters-
+        master: the object creating the frame
+        parent_app: the main application
+        """
         super().__init__(master)
         self.parent_app = parent_app
 
