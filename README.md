@@ -27,20 +27,20 @@ This is my attempt at producing a sudoku solver application.
 
 **run:** *app.py*
 ## Application Interface
-![alt text](sudoku.png)  
+![alt text](readme/sudoku.png)  
 *Main Interface*  
 
-![alt text](filled_grid.png)  
+![alt text](readme/filled_grid.png)  
 *Sudoku grid filled*  
 
-![alt text](solved_grid.png)  
+![alt text](readme/solved_grid.png)  
 *Solved sudoku grid*
 
-![alt text](invalid_grid.png)  
+![alt text](readme/invalid_grid.png)  
 *Invalid sudoku grid (invalid squares are highlighted)*  
 
-![alt text](load_grid.png)  
+![alt text](readme/load_grid.png)  
 *Loading a grid with a string*  
 
-![alt text](error_msg.png)  
+![alt text](readme/error_msg.png)  
 *Error Message from entering invalid string*  
