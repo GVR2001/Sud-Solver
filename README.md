@@ -10,6 +10,8 @@ This is my attempt at producing a sudoku solver application.
 │   ├── window.py
 ├── test
 │   ├── test.py
+├── dist
+│   ├── app.exe
 ├── .venv
 ├── .vscode
 │   ├── settings.json
@@ -25,7 +27,10 @@ This is my attempt at producing a sudoku solver application.
   "python.envFile": "${workspaceFolder}/.env"
 }
 
-**run:** *app.py*
+**Run:**  
+--*app.py*  
+--*dist/app.exe*
+ 
 ## Application Interface
 ![alt text](readme/sudoku.png)  
 *Main Interface*  
