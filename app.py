@@ -150,12 +150,9 @@ class App(customtkinter.CTk):
                 if c != '.':
                     btn.configure(text=c)
     
-    def load_error(self):
+    def load_error(self, err_msg):
         if self.error_window is None or not self.error_window.winfo_exists():
-            self.error_window = ErrorWindow(self)  # create error window if its None or destroyed
-
-
-
+            self.error_window = ErrorWindow(self, err_msg)  # create error window if its None or destroyed
 
 app = App()
 app.mainloop()

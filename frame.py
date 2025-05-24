@@ -16,11 +16,21 @@ class WindowFrame(customtkinter.CTkFrame):
     
     def check_text(self):
         text = self.input_box.get().replace(" ", "")
-        if len(text) == 81 and self.valid_str(text):
+        valid_length = len(text) == 81
+        valid_string = self.valid_str(text)
+        if valid_length and valid_string:
             self.parent_app.load_sudoku(text)
             self.master.destroy() # master will always be instance of TopLevelWindow
         else:
-            self.parent_app.load_error()
+            # Creates error message
+            if not(valid_length) and not(valid_string):
+                err_msg = "Invalid Entry: Contains invalid characters and not of length 81!"
+            elif not(valid_length):
+                err_msg = "Invalid Entry: String not of length 81!"
+            else:
+                err_msg = "Invalid Entry: Contains invalid characters!"
+
+            self.parent_app.load_error(err_msg)
     
     def valid_str(self, text: str):
         for c in text:
@@ -31,8 +41,16 @@ class WindowFrame(customtkinter.CTkFrame):
         return True
 
 class ErrorFrame(customtkinter.CTkFrame):
-    def __init__(self, master):
+    def __init__(self, master, err):
+        self.master = master
         super().__init__(master)
+        self.errorLabel = customtkinter.CTkLabel(self, text=err)
+        self.errorLabel.grid(row=0, column=0, padx=10, pady=10)
+        self.okBtn = customtkinter.CTkButton(self, text='Ok', command=self.exit) # Master would be error window
+        self.okBtn.grid(row=1, column=0, padx=10, pady=10)
+    
+    def exit(self):
+        self.master.destroy()
 
 class MenuFrame(customtkinter.CTkFrame):
     def __init__(self, master, parent_app):
